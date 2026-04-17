@@ -1,21 +1,42 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrainConsistManagementApp {
+
+    static class Bogie {
+        String name;
+        int capacity;
+
+        Bogie(String name, int capacity) {
+            this.name = name;
+            this.capacity = capacity;
+        }
+    }
+
     public static void main(String[] args) {
 
-        System.out.println("UC5 - Preserve Insertion Order of Bogies\n");
+        System.out.println("UC8 - Filter Passenger Bogies Using Streams\n");
 
-        Set<String> train = new LinkedHashSet<>();
+        List<Bogie> bogies = new ArrayList<>();
 
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("Cargo");
-        train.add("Guard");
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("General", 90));
 
-        train.add("Sleeper");
+        System.out.println("All Bogies:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
 
-        System.out.println("Final Train Formation:");
-        System.out.println(train);
+        List<Bogie> filtered = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        for (Bogie b : filtered) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
     }
 }
